@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RadAlgram 2025 — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- ...existing code... -->
+<style>
+  :root{
+    --bg:#f4f7fb;
+    --card:#fff;
+    --accent:#2563eb;
+    --muted:#6b7280;
+    --success:#10b981;
+    --danger:#ef4444;
+    --glass: rgba(255,255,255,0.6);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+
+  body{
+    margin:0;
+    font-family:"Inter",system-ui,Arial,sans-serif;
+    background:linear-gradient(180deg,#eef2ff 0%,var(--bg) 100%);
+    color:#0f172a;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{display:flex;min-height:100vh}
+
+  /* SIDEBAR */
+  .sidebar{
+    width:260px;
+    background:linear-gradient(180deg,#0ea5a4 0%,#0369a1 100%);
+    color:#fff;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .logo{width:46px;height:46px;border-radius:8px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:700}
+  .brand h2{margin:0;font-size:18px}
+  nav.menu{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  nav.menu a{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;color:#e6f4fa;text-decoration:none;font-weight:600}
+  nav.menu a:hover{background:rgba(255,255,255,0.06)}
+  .logout-btn{margin-top:12px;padding:8px 10px;border-radius:8px;border:0;background:rgba(255,255,255,0.06);color:#fff;font-weight:700;cursor:pointer}
+  .sidebar .footer-note{margin-top:auto;font-size:13px;color:rgba(255,255,255,0.85)}
+
+  /* MAIN / NAVBAR */
+  main.main{flex:1;padding:22px}
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 16px;
+    background:rgba(255,255,255,0.6);
+    border-bottom:1px solid rgba(2,6,23,0.03);
+    border-radius:8px;
+    margin-bottom:16px;
+  }
+  .topbar{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+
+  /* Search */
+  .search{
+    flex:1;
+    display:flex;
+    max-width:720px;
+    background:var(--card);
+    border-radius:999px;
+    padding:8px 12px;
+    align-items:center;
+    gap:8px;
+    box-shadow:0 4px 18px rgba(16,24,40,0.06);
+  }
+  .search input{border:0;outline:0;background:transparent;padding:6px;font-size:14px;width:100%}
+
+  /* Buttons / utils */
+  .btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+  .btn.secondary{background:#fff;color:var(--accent);border:1px solid rgba(2,6,23,0.06)}
+  .small{font-size:13px;color:var(--muted)}
+
+  /* Cards & Panels */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+  .card,.panel{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,0.04)}
+  .card h4{margin:0;font-size:13px;color:var(--muted);font-weight:600}
+  .card .value{font-size:20px;font-weight:700;margin-top:8px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eef2ff}
+  th{font-weight:700;color:var(--muted);font-size:13px}
+
+  /* Small components */
+  .avatar{width:36px;height:36px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#60a5fa,#7c3aed);color:#fff;font-weight:700}
+  .status{padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
+  .status.success{background:rgba(16,185,129,0.12);color:var(--success)}
+  .status.warn{background:rgba(250,204,21,0.12);color:#b45309}
+  .status.danger{background:rgba(239,68,68,0.08);color:var(--danger)}
+
+  /* Lists / upload / small helpers */
+  .list{max-height:420px;overflow:auto;margin-top:8px}
+  .item{padding:10px;border-bottom:1px solid #eef3f8}
+  input[type=file]{padding:6px}
+
+  /* Agenda / form helpers */
+  .agenda{display:grid;grid-template-columns:1fr 260px;gap:12px;align-items:start}
+  .session{padding:12px;border-bottom:1px solid #eef2ff}
+  form input, form select, form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef8;margin-top:8px;font-size:14px}
+  .form-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+
+  footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+  /* Responsive */
+  @media (max-width:1000px){
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .sidebar{width:220px}
+  }
+  @media (max-width:720px){
+    .wrap{flex-direction:column}
+    .sidebar{flex-direction:row;gap:12px;padding:12px;overflow:auto;width:100%}
+    main.main{padding:12px}
+    .cards{grid-template-columns:repeat(1,1fr)}
+    .navbar{flex-direction:column;align-items:stretch}
+    nav.menu{flex-direction:row;gap:10px}
+    nav.menu a{padding:8px 10px;font-size:13px}
+  }
+</style>
+<!-- ...existing code... -->  
+</head>
+
+<body>
+  <div class="wrap">
+    <aside class="sidebar" aria-label="Sidebar">
+      <div class="brand">
+        <div class="logo">B</div>
+        <div>
+          <h2>BKKBN</h2>
+          <div style="font-size:12px;opacity:.9">PENGUMPULAN DATA</div>
+        </div>
+      </div>
+
+      <nav class="menu" role="navigation">
+        <a href="index.html">📊 PEMUKTAHIRAN PK</a>
+        <a href="radalgram_2025.html">👥 RADALGRAM 2025</a>
+        <a href="pekan_edukasi_aceh.html">📝 PEKAN EDUKASI ACEH</a>
+      </nav>
+
+    </aside>
+
+    <main class="main">
+      <div class="navbar">
+        <div>
+          <strong>RadAlgram 2025</strong><br><small class="small">Kelola peserta, import data, dan statistik
+            cepat</small>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="btn" onclick="document.getElementById('csvfile').click()">Import CSV</button>
+          <button class="btn secondary" onclick="toggleTheme()">Tema</button>
+        </div>
+      </div>
+
+      <div class="topbar" style="display:flex;gap:12px;align-items:center;margin-bottom:18px">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#94a3b8" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 21l-4.35-4.35" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <input type="search" placeholder="Cari peserta, NIS atau nama..." id="searchBox" />
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn" onclick="exportAll()">Export</button>
+          <button class="btn" onclick="clearList()" style="background:#ef4444">Hapus Semua</button>
+        </div>
+      </div>
+
+      <section class="cards" aria-label="Stat cards">
+        <div class="card">
+          <h4>Peserta Terdaftar</h4>
+          <div class="value" id="countParticipants">0</div>
+        </div>
+        <div class="card">
+          <h4>Sesi</h4>
+          <div class="value">12</div>
+        </div>
+        <div class="card">
+          <h4>Lokasi</h4>
+          <div class="value">Balai Serbaguna</div>
+        </div>
+        <div class="card">
+          <h4>Versi</h4>
+          <div class="value">Demo 1.0</div>
+        </div>
+      </section>
+
+      <div class="grid" style="display:grid;grid-template-columns:1fr 360px;gap:14px">
+        <section class="panel">
+          <h3 style="margin-top:0">Daftar Peserta</h3>
+          <div style="overflow:auto">
+            <table id="tblParticipants">
+              <thead>
+                <tr>
+                  <th>NIS</th>
+                  <th>Nama</th>
+                  <th>Kelas</th>
+                  <th>Kontak</th>
+                  <th>Waktu</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <small class="small">Menampilkan 40 entri terbaru</small>
+            <a href="#" style="text-decoration:none;color:var(--accent);font-weight:700"
+              onclick="exportAll();return false">Export CSV →</a>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <h4 style="margin-top:0">Import CSV</h4>
+          <form onsubmit="parseCSV(event)" class="upload">
+            <input type="file" id="csvfile" accept=".csv" required>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button type="submit" class="btn">Import</button>
+              <button type="button" class="btn secondary" onclick="clearList()">Hapus Semua</button>
+            </div>
+          </form>
+
+          <h4 style="margin-top:16px">Peserta Terbaru</h4>
+          <div class="list" id="list"></div>
+        </aside>
+      </div>
+
+      <footer style="margin-top:18px;text-align:center;color:var(--muted)">© <span id="year"></span> RadAlgram 2025 —
+        Demo</footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const participants = [];
+
+    function parseCSV(e) {
+      e.preventDefault();
+      const f = document.getElementById('csvfile').files[0];
+      if (!f) return alert('Pilih file CSV terlebih dahulu');
+      const r = new FileReader();
+      r.onload = function () {
+        const rows = r.result.split(/\r?\n/).filter(Boolean);
+        rows.forEach(row => {
+          const cols = row.split(',');
+          const nis = (cols[0] || '').trim();
+          const nama = (cols[1] || '').trim();
+          const kls = (cols[2] || '').trim();
+          const contact = (cols[3] || '').trim();
+          if (nis && nama) participants.unshift({ nis, nama, kls, contact, ts: Date.now() });
+        });
+        render();
+        alert('Import selesai: ' + rows.length + ' baris (ditambahkan ke daftar).');
+      };
+      r.readAsText(f, 'utf-8');
+    }
+
+    function render() {
+      const listEl = document.getElementById('list'); listEl.innerHTML = '';
+      const tbody = document.querySelector('#tblParticipants tbody'); tbody.innerHTML = '';
+      participants.slice(0, 1000).forEach((p, i) => {
+        const d = document.createElement('div'); d.className = 'item';
+        d.innerHTML = `<strong>${escapeHtml(p.nis)}</strong> — ${escapeHtml(p.nama)}<div class="small">${escapeHtml(p.kls)} · ${escapeHtml(p.contact || '-')}</div>`;
+        listEl.appendChild(d);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${escapeHtml(p.nis)}</td><td>${escapeHtml(p.nama)}</td><td>${escapeHtml(p.kls)}</td><td>${escapeHtml(p.contact)}</td><td>${new Date(p.ts).toLocaleString()}</td>`;
+        tbody.appendChild(tr);
+      });
+      document.getElementById('countParticipants').textContent = participants.length;
+    }
+
+    function exportAll() {
+      if (!participants.length) return alert('Belum ada data untuk diexport');
+      const csv = participants.map(p => [p.nis, p.nama, p.kls, p.contact, new Date(p.ts).toLocaleString()].map(s => `"${(s || '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
+      const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'radalgram_participants.csv'; a.click();
+    }
+
+    function clearList() {
+      if (!participants.length) return;
+      if (confirm('Hapus semua peserta dari daftar sementara?')) {
+        participants.length = 0;
+        render();
+      }
+    }
+
+    function escapeHtml(s) { return (s || '').toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+    document.getElementById('searchBox').addEventListener('input', function (e) {
+      const q = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('#tblParticipants tbody tr');
+      rows.forEach(r => {
+        r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+
+    function toggleTheme() {
+      const body = document.body;
+      if (body.style.background.includes('#071024')) body.style.background = '';
+      else body.style.background = 'linear-gradient(180deg,#071024 0%, #0b1220 100%)';
+    }
+  </script>
+</body>
+
+</html>
