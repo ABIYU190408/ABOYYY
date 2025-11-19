@@ -11,11 +11,7 @@ export function loadsidebar() {
     document.getElementById('sidebar').innerHTML = `
     <aside class="sidebar" aria-label="Sidebar">
         <div class="brand">
-            <div class="logo"><img src="../assets/img/Logo-Kemendukbangga.png" alt="logo" style="width: 46px; height: 46px; border-radius: 8px; background: rgba(255, 255, 255, 0.12); display: flex; align-items: center; justify-content: center; font-weight: 700"></div>
-            <div>
-                <h2>BKKBN</h2>
-                <div style="font-size:12px;opacity:.9">PENGUMPULAN DATA</div>
-            </div>
+            <div class="logo"><img src="../assets/img/Logo-Kemendukbangga.png" alt="logo"></div>   
         </div>
         
         <nav class="menu" role="navigation">
