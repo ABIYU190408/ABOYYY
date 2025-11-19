@@ -54,3 +54,7 @@ nav.menu a {
 nav.menu a:hover {
     background: rgba(255, 255, 255, 0.06)
 }
+
+nav.menu a span {
+    margin-right: 5px;
+}
