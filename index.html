@@ -378,82 +378,20 @@
         </div>
       </div>
 
-=======
-      <section class="panel" style="margin-bottom:16px">
-        <iframe width="600" height="443"
-          src="https://lookerstudio.google.com/embed/reporting/9945e96e-8bbd-4f61-8cd4-aa93049ab4dc/page/uitfF"
-          frameborder="0" style="border:0" allowfullscreen
-          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+      <!-- improved section -->
+      <section class="panel report-panel">
+        <div class="iframe-wrapper">
+          <iframe src="https://lookerstudio.google.com/embed/reporting/9945e96e-8bbd-4f61-8cd4-aa93049ab4dc/page/uitfF"
+            allowfullscreen
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
       </section>
 
-
-      <footer style="margin-top:16px;color:var(--muted)">
-        © <span id="year"></span> Pemuktahiran PK — Demo
+      <footer>
+        &copy; 2024 Pemuktahiran PK. All rights reserved.
       </footer>
     </main>
   </div>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const store = [];
-    function tambahEntry(e) {
-      e.preventDefault();
-      const kode = document.getElementById('kode').value.trim();
-      const nama = document.getElementById('nama').value.trim();
-      const status = document.getElementById('status').value;
-      const catatan = document.getElementById('catatan').value.trim();
-      if (!kode || !nama) return alert('Lengkapi kode & nama');
-      store.unshift({ kode, nama, status, catatan, ts: Date.now() });
-      render();
-      e.target.reset();
-    }
-    function render() {
-      const tbody = document.querySelector('#tbl tbody');
-      tbody.innerHTML = '';
-      let v = 0, d = 0;
-      store.slice(0, 100).forEach((r, i) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${i + 1}</td><td>${escapeHtml(r.kode)}</td><td>${escapeHtml(r.nama)}</td><td>${escapeHtml(r.status)}</td><td>${escapeHtml(r.catatan)}</td>
-      <td><button onclick="hapus(${i})">Hapus</button></td>`;
-        tbody.appendChild(tr);
-        if (r.status === 'terverifikasi') v++; if (r.status === 'draft') d++;
-      });
-      document.getElementById('countStore').textContent = store.length;
-      document.getElementById('countVerified').textContent = v;
-      document.getElementById('countDraft').textContent = d;
-    }
-    function hapus(i) { if (confirm('Hapus entry?')) { store.splice(i, 1); render(); } }
-    function resetForm() { document.getElementById('formPemuktahiran').reset(); }
-    function exportCSV() {
-      if (!store.length) return alert('Belum ada data untuk diexport');
-      let csv = 'Kode,Nama,Status,Catatan,Waktu\n' + store.map(r => [
-        '"' + (r.kode.replace(/"/g, '""')) + '"',
-        '"' + (r.nama.replace(/"/g, '""')) + '"',
-        '"' + (r.status.replace(/"/g, '""')) + '"',
-        '"' + (r.catatan.replace(/"/g, '""')) + '"',
-        '"' + new Date(r.ts).toLocaleString() + '"'
-      ].join(',')).join('\n');
-      const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'pemuktahiran_pk.csv'; a.click();
-    }
-    function escapeHtml(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-
-    document.getElementById('searchBox').addEventListener('input', function (e) {
-      const q = e.target.value.toLowerCase();
-      const rows = document.querySelectorAll('#tbl tbody tr');
-      rows.forEach(r => {
-        const text = r.textContent.toLowerCase();
-        r.style.display = text.includes(q) ? '' : 'none';
-      });
-    });
-
-    function toggleTheme() {
-      const body = document.body;
-      if (body.style.background.includes('#071024')) body.style.background = '';
-      else body.style.background = 'linear-gradient(180deg,#071024 0%, #0b1220 100%)';
-    }
-  </script>
 </body>
-
 </html>
-<!doctype
+
