@@ -1,0 +1,29 @@
+/* Consolidated single CSS block for all pages (use the same block in other HTML files) */
+:root {
+    --bg: #f4f7fb;
+    --card: #fff;
+    --accent: #2563eb;
+    --muted: #6b7280;
+    --success: #10b981;
+    --danger: #ef4444;
+    --glass: rgba(255, 255, 255, 0.6);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", system-ui, Arial, sans-serif;
+    background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 100%);
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+    display: flex;
+    min-height: 100vh
+}

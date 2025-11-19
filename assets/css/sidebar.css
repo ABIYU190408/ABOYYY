@@ -1,0 +1,53 @@
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #0ea5a4 0%, #0369a1 100%);
+    color: #fff;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px
+  }
+
+  .brand .logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700
+  }
+
+  .brand h2 {
+    margin: 0;
+    font-size: 18px
+  }
+
+  nav.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+  }
+
+  nav.menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    color: #e6f4fa;
+    text-decoration: none;
+    font-weight: 600
+  }
+
+  nav.menu a:hover {
+    background: rgba(255, 255, 255, 0.06)
+  }
