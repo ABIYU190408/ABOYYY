@@ -15,9 +15,20 @@ export function loadsidebar() {
         </div>
         
         <nav class="menu" role="navigation">
-            <a href="../index.html">📊 PEMUKTAHIRAN PK</a>
-            <a href="../radalgram_2025.html">👥 RADALGRAM 2025</a>
-            <a href="../pekan_edukasi_aceh.html">📝 PEKAN EDUKASI ACEH</a>
+            <a href="../index.html">
+                <span>📊</span>
+                <p>PEMUKTAHIRAN PK</p>
+            </a>
+            
+            <a href="../radalgram_2025.html">
+                <span>👥</span>
+            <p> RADALGRAM 2025 </p>
+            </a>
+
+            <a href="../pekan_edukasi_aceh.html">
+                <span>📝</span>
+            <p> PEKAN EDUKASI ACEH </p>
+            </a>
         </nav>
     </aside>`;
 }
