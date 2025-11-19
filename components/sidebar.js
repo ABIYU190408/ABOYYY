@@ -19,11 +19,16 @@ export function loadsidebar() {
                 <span>📊</span>
                 <p>PEMUKTAHIRAN PK</p>
             </a>
+            
+            <a href="../radalgram_2025.html">
+                <span>👥</span>
+            <p> RADALGRAM 2025 </p>
+            </a>
 
-
-            <a href="../index.html">📊&nbsp; PEMUKTAHIRAN PK</a>
-            <a href="../radalgram_2025.html">👥&nbsp; RADALGRAM 2025</a>
-            <a href="../pekan_edukasi_aceh.html">📝&nbsp; PEKAN EDUKASI ACEH</a>
+            <a href="../pekan_edukasi_aceh.html">
+                <span>📝</span>
+            <p> PEKAN EDUKASI ACEH </p>
+            </a>
         </nav>
     </aside>`;
 }
