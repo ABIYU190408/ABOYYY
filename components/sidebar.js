@@ -16,11 +16,6 @@ export function loadsidebar() {
         
         <nav class="menu" role="navigation">
             <a href="../index.html">
-                <span>📊</span>
-                <p>PEMUKTAHIRAN PK</p>
-            </a>
-            
-            <a href="../radalgram_2025.html">
                 <span>👥</span>
             <p> RADALGRAM 2025 </p>
             </a>
@@ -28,6 +23,11 @@ export function loadsidebar() {
             <a href="../pekan_edukasi_aceh.html">
                 <span>📝</span>
             <p> PEKAN EDUKASI ACEH </p>
+            </a>
+
+            <a href="../genting.html">
+                <span>📝</span>
+            <p> GENTING </p>
             </a>
         </nav>
     </aside>`;
