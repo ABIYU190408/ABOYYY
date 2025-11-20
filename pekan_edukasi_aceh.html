@@ -1,320 +1,397 @@
-<!-- ...existing code... -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Pekan Edukasi Aceh — Dashboard</title>
+  <title>Pekan Edukasi Aceh Dashboard</title>
+  <link rel="stylesheet" href="assets/css/index.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  /* Consolidated CSS shared across TES pages (sidebar, navbar, cards, panels, forms, responsive) */
-  :root{
-    --bg:#f4f7fb;
-    --card:#fff;
-    --accent:#2563eb;
-    --muted:#6b7280;
-    --success:#10b981;
-    --danger:#ef4444;
-    --glass: rgba(255,255,255,0.6);
-  }
+  <!-- ...existing code... -->
+  <style>
+    .logout-btn {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 0;
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer
+    }
 
-  *,*::before,*::after{box-sizing:border-box}
+    .sidebar .footer-note {
+      margin-top: auto;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85)
+    }
 
-  body{
-    margin:0;
-    font-family:"Inter",system-ui,Arial,sans-serif;
-    background:linear-gradient(180deg,#eef2ff 0%,var(--bg) 100%);
-    color:#0f172a;
-    -webkit-font-smoothing:antialiased;
-  }
+    /* -------------------------------------------------------------------------- */
+    /* MAIN / NAVBAR */
+    main.main {
+      flex: 1;
+      padding: 22px
+    }
 
-  .wrap{display:flex;min-height:100vh}
+    /* -------------------------------------------------------------------------- */
+    .topbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px
+    }
 
-  /* SIDEBAR */
-  .sidebar{
-    width:260px;
-    background:linear-gradient(180deg,#0ea5a4 0%,#0369a1 100%);
-    color:#fff;
-    padding:24px;
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-  }
-  .brand{display:flex;align-items:center;gap:12px}
-  .brand .logo{width:46px;height:46px;border-radius:8px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:700}
-  .brand h2{margin:0;font-size:18px}
-  nav.menu{display:flex;flex-direction:column;gap:8px;margin-top:6px}
-  nav.menu a{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;color:#e6f4fa;text-decoration:none;font-weight:600}
-  nav.menu a:hover{background:rgba(255,255,255,0.06)}
-  .logout-btn{margin-top:12px;padding:8px 10px;border-radius:8px;border:0;background:rgba(255,255,255,0.06);color:#fff;font-weight:700;cursor:pointer}
-  .sidebar .footer-note{margin-top:auto;font-size:13px;color:rgba(255,255,255,0.85)}
+    /* Search box used across pages */
+    .search {
+      flex: 1;
+      display: flex;
+      max-width: 720px;
+      background: var(--card);
+      border-radius: 999px;
+      padding: 8px 12px;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(16, 24, 40, 0.06);
+    }
 
-  /* MAIN / NAVBAR */
-  main.main{flex:1;padding:22px}
-  .navbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    padding:12px 16px;
-    background:rgba(255,255,255,0.6);
-    border-bottom:1px solid rgba(2,6,23,0.03);
-    border-radius:8px;
-    margin-bottom:16px;
-  }
-  .topbar{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+    .search input {
+      border: 0;
+      outline: 0;
+      background: transparent;
+      padding: 6px;
+      font-size: 14px;
+      width: 100%
+    }
 
-  /* Search box used across pages */
-  .search{
-    flex:1;
-    display:flex;
-    max-width:720px;
-    background:var(--card);
-    border-radius:999px;
-    padding:8px 12px;
-    align-items:center;
-    gap:8px;
-    box-shadow:0 4px 18px rgba(16,24,40,0.06);
-  }
-  .search input{border:0;outline:0;background:transparent;padding:6px;font-size:14px;width:100%}
+    /* Buttons / utils */
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600
+    }
 
-  /* Buttons / utils */
-  .btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
-  .btn.secondary{background:#fff;color:var(--accent);border:1px solid rgba(2,6,23,0.06)}
-  .small{font-size:13px;color:var(--muted)}
+    .btn.secondary {
+      background: #fff;
+      color: var(--accent);
+      border: 1px solid rgba(2, 6, 23, 0.06)
+    }
 
-  /* Cards & Panels */
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
-  .card,.panel{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,0.04)}
-  .card h4{margin:0;font-size:13px;color:var(--muted);font-weight:600}
-  .card .value{font-size:20px;font-weight:700;margin-top:8px}
+    .small {
+      font-size: 13px;
+      color: var(--muted)
+    }
 
-  /* Tables */
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eef2ff}
-  th{font-weight:700;color:var(--muted);font-size:13px}
+    /* Cards & Panels */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 18px
+    }
 
-  /* Small components */
-  .avatar{width:36px;height:36px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#60a5fa,#7c3aed);color:#fff;font-weight:700}
-  .status{padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
-  .status.success{background:rgba(16,185,129,0.12);color:var(--success)}
-  .status.warn{background:rgba(250,204,21,0.12);color:#b45309}
-  .status.danger{background:rgba(239,68,68,0.08);color:var(--danger)}
+    .card,
+    .panel {
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(2, 6, 23, 0.04)
+    }
 
-  /* Lists / upload / small helpers */
-  .list{max-height:420px;overflow:auto;margin-top:8px}
-  .item{padding:10px;border-bottom:1px solid #eef3f8}
-  input[type=file]{padding:6px}
+    .card h4 {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600
+    }
 
-  /* Agenda / form helpers */
-  .agenda{display:grid;grid-template-columns:1fr 260px;gap:12px;align-items:start}
-  .session{padding:12px;border-bottom:1px solid #eef2ff}
-  form input, form select, form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef8;margin-top:8px;font-size:14px}
-  .form-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .card .value {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 8px
+    }
 
-  footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px
+    }
 
-  /* Responsive */
-  @media (max-width:1000px){
-    .cards{grid-template-columns:repeat(2,1fr)}
-    .sidebar{width:220px}
-  }
-  @media (max-width:720px){
-    .wrap{flex-direction:column}
-    .sidebar{flex-direction:row;gap:12px;padding:12px;overflow:auto;width:100%}
-    main.main{padding:12px}
-    .cards{grid-template-columns:repeat(1,1fr)}
-    .navbar{flex-direction:column;align-items:stretch}
-    nav.menu{flex-direction:row;gap:10px}
-    nav.menu a{padding:8px 10px;font-size:13px}
-  }
+    th,
+    td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #eef2ff
+    }
 
-  /* Small tweak for file inputs used in other pages */
-  input[type=file]{padding:6px}
-</style>
+    th {
+      font-weight: 700;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    /* Small components */
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #60a5fa, #7c3aed);
+      color: #fff;
+      font-weight: 700
+    }
+
+    .status {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px
+    }
+
+    .status.success {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--success)
+    }
+
+    .status.warn {
+      background: rgba(250, 204, 21, 0.12);
+      color: #b45309
+    }
+
+    .status.danger {
+      background: rgba(239, 68, 68, 0.08);
+      color: var(--danger)
+    }
+
+    /* Lists / upload / small helpers */
+    .list {
+      max-height: 420px;
+      overflow: auto;
+      margin-top: 8px
+    }
+
+    .item {
+      padding: 10px;
+      border-bottom: 1px solid #eef3f8
+    }
+
+    input[type=file] {
+      padding: 6px
+    }
+
+    /* Agenda / form helpers */
+    .agenda {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 12px;
+      align-items: start
+    }
+
+    .session {
+      padding: 12px;
+      border-bottom: 1px solid #eef2ff
+    }
+
+    form input,
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #e6eef8;
+      margin-top: 8px;
+      font-size: 14px
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px
+    }
+
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    /* Responsive */
+    @media (max-width:1000px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .sidebar {
+        width: 220px
+      }
+    }
+
+    @media (max-width:720px) {
+      .wrap {
+        flex-direction: column
+      }
+
+      .sidebar {
+        flex-direction: row;
+        gap: 12px;
+        padding: 12px;
+        overflow: auto;
+        width: 100%
+      }
+
+      main.main {
+        padding: 12px
+      }
+
+      .cards {
+        grid-template-columns: repeat(1, 1fr)
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: stretch
+      }
+
+      nav.menu {
+        flex-direction: row;
+        gap: 10px
+      }
+
+      nav.menu a {
+        padding: 8px 10px;
+        font-size: 13px
+      }
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* centered horizontally */
+      gap: 12px;
+      padding: 12px 16px;
+      background-color: rgb(32, 85, 139);
+      box-shadow: 0 4px 18px rgba(2, 92, 134, 0.675);
+      border-radius: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* ensure inner content is centered and constrained to same max width as report panel */
+    .navbar>div {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      /* center text / title */
+    }
+
+    /* Centered, larger report panel */
+    .panel.report-panel {
+      max-width: 1100px;
+      margin: 32px auto;
+      /* center horizontally + ruang atas/bawah */
+      padding: 24px;
+      /* ruang dalam yang lebih lega */
+      border-radius: 24px;
+      background-color: rgb(70, 135, 200);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+      border: 2px solid rgb(59, 107, 202);
+      overflow: hidden;
+    }
+
+    /* Responsive iframe with larger minimum height */
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      /* 16:9 aspect ratio */
+      min-height: 520px;
+      /* lebih besar pada layar lebar */
+      height: 0;
+      overflow: hidden;
+      border-radius: 24px;
+      /* background: linear-gradient(135deg, rgba(233, 235, 241, 0.573) 0%, rgb(236, 237, 239) 100%); */
+      background-color: #e6eef8;
+      border: 2px solid rgba(5, 93, 112, 0.608);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.738);
+    }
+
+    .iframe-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* Tweak untuk layar sangat lebar */
+    @media (min-width: 1400px) {
+      .panel.report-panel {
+        max-width: 1300px;
+      }
+
+      .iframe-wrapper {
+        min-height: 720px;
+        padding-bottom: 50%;
+      }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 720px) {
+      .panel.report-panel {
+        margin: 16px;
+        padding: 12px;
+      }
+
+      .iframe-wrapper {
+        min-height: 260px;
+        padding-bottom: 56.25%;
+      }
+    }
+  </style>
 </head>
 
 <body>
   <div class="wrap">
-    <aside class="sidebar" aria-label="Sidebar">
-      <div class="brand">
-        <div class="logo">B</div>
-        <div>
-          <h2>BKKBN</h2>
-          <div style="font-size:12px;opacity:.9">PENGUMPULAN DATA</div>
-        </div>
-      </div>
+    <div id="sidebar"></div>
 
-      <nav class="menu" role="navigation">
-        <a href="Index.html">📊 PEMUKTAHIRAN PK</a>
-        <a href="radalgram_2025.html">👥 RADALGRAM 2025</a>
-        <a href="pekan_edukasi_aceh.html">📝 PEKAN EDUKASI ACEH</a>
-      </nav>
-
-
-    </aside>
+    <script type="module">
+      import { loadsidebar } from './components/sidebar.js';
+      loadsidebar();
+    </script>
 
     <main class="main">
       <div class="navbar">
         <div>
-          <strong>Pekan Edukasi Aceh — Dashboard</strong><br><small style="color:var(--muted)">Ringkasan & pendaftaran
-            cepat</small>
-        </div>
-        <div style="display:flex;gap:10px;align-items:center">
-          <button class="btn" onclick="document.getElementById('scrollToForm').scrollIntoView()">Daftar Peserta</button>
-          <button class="btn secondary" onclick="toggleTheme()">Tema</button>
+          <strong style="font-size: 30px; color: #e6eef8;">Pekan Edukasi Aceh</strong><br><small class="small"
+            style="font-size: 15px; color: #e6eef8;">Tambah dan kelola Pekan Edukasi Aceh</small>
+
         </div>
       </div>
 
-      <div class="topbar" style="display:flex;gap:12px;align-items:center;margin-bottom:18px">
-        <div class="search" role="search">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#94a3b8" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 21l-4.35-4.35" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-          <input type="search" placeholder="Cari peserta, NIS atau catatan..." id="searchBox" />
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn" onclick="exportRegistrations()">Export</button>
-        </div>
-      </div>
-
-      <section class="cards" aria-label="Stat cards">
-        <div class="card">
-          <h4>Peserta Terdaftar</h4>
-          <div class="value" id="countRegs">0</div>
-        </div>
-        <div class="card">
-          <h4>Sesi</h4>
-          <div class="value">5</div>
-        </div>
-        <div class="card">
-          <h4>Lokasi</h4>
-          <div class="value">Balai Serbaguna</div>
-        </div>
-        <div class="card">
-          <h4>Versi</h4>
-          <div class="value">Demo 1.0</div>
+      <!-- improved section -->
+      <section class="panel report-panel">
+        <div class="iframe-wrapper">
+          <iframe src="https://lookerstudio.google.com/embed/reporting/9945e96e-8bbd-4f61-8cd4-aa93049ab4dc/page/uitfF"
+            allowfullscreen
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
         </div>
       </section>
 
-      <section class="panel" style="margin-bottom:16px">
-        <h3 style="margin-top:0;margin-bottom:12px">Agenda Ringkas</h3>
-        <div class="agenda">
-          <div>
-            <div class="session"><strong>09:00</strong> — Pembukaan & Sambutan</div>
-            <div class="session"><strong>09:30</strong> — Sesi: Teknologi Pendidikan</div>
-            <div class="session"><strong>11:00</strong> — Workshop: Metode Pembelajaran</div>
-            <div class="session"><strong>13:00</strong> — Panel Diskusi</div>
-            <div class="session"><strong>15:00</strong> — Penutup</div>
-          </div>
-          <aside>
-            <div style="font-size:13px;color:var(--muted)">Lokasi</div>
-            <strong>Balai Serbaguna Aceh</strong>
-            <div style="margin-top:10px" class="small">Kontak Penyelenggara</div>
-            <div>0821-xxxx-xxxx</div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h3 style="margin-top:0;margin-bottom:12px">Daftar Pendaftaran Terbaru</h3>
-        <div style="overflow:auto">
-          <table id="tblRegs">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Nama</th>
-                <th>NIS/NIK</th>
-                <th>Instansi</th>
-                <th>Sesi</th>
-                <th>Waktu</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-          <small class="muted">Menampilkan 10 entri terbaru</small>
-          <a href="#" style="text-decoration:none;color:var(--accent);font-weight:700"
-            onclick="exportRegistrations();return false">Export CSV →</a>
-        </div>
-      </section>
-
-      <section id="scrollToForm" class="panel" style="margin-top:16px">
-        <h3 style="margin-top:0">Pendaftaran Peserta</h3>
-        <form id="formReg" onsubmit="submitReg(event)">
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
-            <input id="nama" placeholder="Nama lengkap" required>
-            <input id="nis" placeholder="NIS / NIK (opsional)">
-            <input id="instansi" placeholder="Sekolah / Instansi">
-            <select id="sesi">
-              <option>Semua Sesi</option>
-              <option>Workshop: Metode Pembelajaran</option>
-              <option>Sesi: Teknologi Pendidikan</option>
-            </select>
-          </div>
-          <textarea id="keterangan" placeholder="Keterangan (opsional)" style="margin-top:12px"></textarea>
-          <div style="display:flex;gap:8px;margin-top:12px">
-            <button class="btn" type="submit">Daftar</button>
-            <button type="button" onclick="clearForm()" class="btn secondary">Reset</button>
-          </div>
-          <div id="msg" style="margin-top:12px"></div>
-        </form>
-      </section>
-
-      <footer>© <span id="year"></span> Pekan Edukasi Aceh — Demo</footer>
+      <footer>
+        &copy; .2025 Pemuktahiran PK. 
+      </footer>
     </main>
   </div>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    const regs = [];
-
-    function submitReg(e) {
-      e.preventDefault();
-      const nama = document.getElementById('nama').value.trim();
-      if (!nama) return alert('Nama wajib diisi');
-      const item = { nama, nis: document.getElementById('nis').value.trim(), instansi: document.getElementById('instansi').value.trim(), sesi: document.getElementById('sesi').value, keterangan: document.getElementById('keterangan').value.trim(), ts: Date.now() };
-      regs.unshift(item);
-      renderRegs();
-      document.getElementById('msg').innerHTML = '<div style="padding:12px;background:#ecfeff;border-radius:8px">Pendaftaran berhasil untuk <strong>' + nama + '</strong></div>';
-      e.target.reset();
-    }
-
-    function renderRegs() {
-      const tbody = document.querySelector('#tblRegs tbody'); tbody.innerHTML = '';
-      regs.slice(0, 10).forEach((r, i) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + escapeHtml(r.nama) + '</td><td>' + escapeHtml(r.nis || '-') + '</td><td>' + escapeHtml(r.instansi || '-') + '</td><td>' + escapeHtml(r.sesi) + '</td><td>' + new Date(r.ts).toLocaleString() + '</td>';
-        tbody.appendChild(tr);
-      });
-      document.getElementById('countRegs').textContent = regs.length;
-    }
-
-    function clearForm() { document.getElementById('formReg').reset(); document.getElementById('msg').innerHTML = ''; }
-
-    function exportRegistrations() {
-      if (!regs.length) return alert('Belum ada data untuk diexport');
-      let csv = 'Nama,NIS,NIK/Instansi,Sesi,Keterangan,Waktu\n' + regs.map(r => ['"' + (r.nama.replace(/"/g, '""')) + '"', '"' + (r.nis.replace(/"/g, '""')) + '"', '"' + (r.instansi.replace(/"/g, '""')) + '"', '"' + (r.sesi.replace(/"/g, '""')) + '"', '"' + (r.keterangan.replace(/"/g, '""')) + '"', '"' + new Date(r.ts).toLocaleString() + '"'].join(',')).join('\n');
-      const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv); a.download = 'pendaftaran_pekan_edukasi.csv'; a.click();
-    }
-
-    function escapeHtml(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-
-    function toggleTheme() {
-      const body = document.body;
-      if (body.style.background.includes('#071024')) body.style.background = '';
-      else body.style.background = 'linear-gradient(180deg,#071024 0%, #0b1220 100%)';
-    }
-
-    document.getElementById('searchBox').addEventListener('input', function (e) {
-      const q = e.target.value.toLowerCase();
-      const rows = document.querySelectorAll('#tblRegs tbody tr');
-      rows.forEach(r => { r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none'; });
-    });
-  </script>
 </body>
-
 </html>
+
