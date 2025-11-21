@@ -11,7 +11,7 @@ export function loadsidebar() {
     document.getElementById('sidebar').innerHTML = `
     <aside class="sidebar" aria-label="Sidebar">
         <div class="brand">
-         <div class="logo"><img src="../assets/img/Logo-Kemendukbangga.png" alt="logo"></div>   
+            <div class="logo"><img src="../assets/img/Logo-Kemendukbangga.png" alt="logo"></div>   
         </div>
         
         <nav class="menu" role="navigation">
@@ -28,6 +28,11 @@ export function loadsidebar() {
             <a href="../genting.html">
                 <span>📝</span>
             <p> GENTING </p>
+            </a>
+            
+            <a href="../testing.html">
+                <span>📝</span>
+            <p> test tbl </p>
             </a>
         </nav>
     </aside>`;
