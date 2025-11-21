@@ -15,7 +15,7 @@ export function loadsidebar() {
         </div>
         
         <nav class="menu" role="navigation">
-            <a href="../index.html">
+            <a href="../radalgram.html">
                 <span>👥</span>
             <p> RADALGRAM 2025 </p>
             </a>
@@ -29,6 +29,13 @@ export function loadsidebar() {
                 <span>📝</span>
             <p> GENTING </p>
             </a>
+
+            <a href="../index.html">
+                <span>ℹ️</span>
+            <p> ABOUT </p>
+            </a>
+
+            
         </nav>
     </aside>`;
 }
