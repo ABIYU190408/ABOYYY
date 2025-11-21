@@ -9,7 +9,8 @@
   "devDependencies": {},
   "scripts": {
     "build": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch",
-    "final": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --minify"
+    "final": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --minify",
+    "module": "npm install tailwindcss @tailwindcss/cli"
   },
   "keywords": [],
   "author": "",
