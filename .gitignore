@@ -1,5 +1,21 @@
-# Node modules (jangan diupload ke GitHub)
+# Node modules
 node_modules/
 
 # Build output
 src/output.css
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor configs
+.vscode/
+.idea/
