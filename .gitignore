@@ -1,0 +1,5 @@
+# Node modules (jangan diupload ke GitHub)
+node_modules/
+
+# Build output
+src/output.css
