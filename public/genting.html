@@ -9,267 +9,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <!-- ...existing code... -->
   <style>
-    .logout-btn {
-      margin-top: 12px;
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 0;
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer
+    /* Minimal styles hanya untuk layout halaman, navbar, panel report dan iframe responsive */
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #f7fafc;
+      color: #0f1724;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .sidebar .footer-note {
-      margin-top: auto;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.85)
+    .wrap {
+      display: flex;
+      min-height: 100vh;
+      gap: 20px;
+      box-sizing: border-box;
     }
 
-    /* -------------------------------------------------------------------------- */
-    /* MAIN / NAVBAR */
+    /* Sidebar placeholder (component akan mengisi isinya) */
+    #sidebar {
+      width: 260px;
+      min-width: 220px;
+      box-sizing: border-box;
+    }
+
     main.main {
       flex: 1;
-      padding: 22px
+      padding: 22px;
+      box-sizing: border-box;
     }
 
-    /* -------------------------------------------------------------------------- */
-    .topbar {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 18px
-    }
-
-    /* Search box used across pages */
-    .search {
-      flex: 1;
-      display: flex;
-      max-width: 720px;
-      background: var(--card);
-      border-radius: 999px;
-      padding: 8px 12px;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 18px rgba(16, 24, 40, 0.06);
-    }
-
-    .search input {
-      border: 0;
-      outline: 0;
-      background: transparent;
-      padding: 6px;
-      font-size: 14px;
-      width: 100%
-    }
-
-    /* Buttons / utils */
-    .btn {
-      background: var(--accent);
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 0;
-      cursor: pointer;
-      font-weight: 600
-    }
-
-    .btn.secondary {
-      background: #fff;
-      color: var(--accent);
-      border: 1px solid rgba(2, 6, 23, 0.06)
-    }
-
-    .small {
-      font-size: 13px;
-      color: var(--muted)
-    }
-
-    /* Cards & Panels */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-bottom: 18px
-    }
-
-    .card,
-    .panel {
-      background: var(--card);
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 6px 24px rgba(2, 6, 23, 0.04)
-    }
-
-    .card h4 {
-      margin: 0;
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 600
-    }
-
-    .card .value {
-      font-size: 20px;
-      font-weight: 700;
-      margin-top: 8px
-    }
-
-    /* Tables */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px
-    }
-
-    th,
-    td {
-      padding: 10px 12px;
-      text-align: left;
-      border-bottom: 1px solid #eef2ff
-    }
-
-    th {
-      font-weight: 700;
-      color: var(--muted);
-      font-size: 13px
-    }
-
-    /* Small components */
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #60a5fa, #7c3aed);
-      color: #fff;
-      font-weight: 700
-    }
-
-    .status {
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 13px
-    }
-
-    .status.success {
-      background: rgba(16, 185, 129, 0.12);
-      color: var(--success)
-    }
-
-    .status.warn {
-      background: rgba(250, 204, 21, 0.12);
-      color: #b45309
-    }
-
-    .status.danger {
-      background: rgba(239, 68, 68, 0.08);
-      color: var(--danger)
-    }
-
-    /* Lists / upload / small helpers */
-    .list {
-      max-height: 420px;
-      overflow: auto;
-      margin-top: 8px
-    }
-
-    .item {
-      padding: 10px;
-      border-bottom: 1px solid #eef3f8
-    }
-
-    input[type=file] {
-      padding: 6px
-    }
-
-    /* Agenda / form helpers */
-    .agenda {
-      display: grid;
-      grid-template-columns: 1fr 260px;
-      gap: 12px;
-      align-items: start
-    }
-
-    .session {
-      padding: 12px;
-      border-bottom: 1px solid #eef2ff
-    }
-
-    form input,
-    form select,
-    form textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #e6eef8;
-      margin-top: 8px;
-      font-size: 14px
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px
-    }
-
-    footer {
-      margin-top: 18px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px
-    }
-
-    /* Responsive */
-    @media (max-width:1000px) {
-      .cards {
-        grid-template-columns: repeat(2, 1fr)
-      }
-
-      .sidebar {
-        width: 220px
-      }
-    }
-
-    @media (max-width:720px) {
-      .wrap {
-        flex-direction: column
-      }
-
-      .sidebar {
-        flex-direction: row;
-        gap: 12px;
-        padding: 12px;
-        overflow: auto;
-        width: 100%
-      }
-
-      main.main {
-        padding: 12px
-      }
-
-      .cards {
-        grid-template-columns: repeat(1, 1fr)
-      }
-
-      .navbar {
-        flex-direction: column;
-        align-items: stretch
-      }
-
-      nav.menu {
-        flex-direction: row;
-        gap: 10px
-      }
-
-      nav.menu a {
-        padding: 8px 10px;
-        font-size: 13px
-      }
-    }
-
+    /* Navbar sederhana */
     .navbar {
       display: flex;
       align-items: center;
@@ -285,16 +57,14 @@
       border-bottom: 4px solid rgba(4, 3, 72, 0.564);
     }
 
-    /* ensure inner content is centered and constrained to same max width as report panel */
-    .navbar>div {
+    .navbar > div {
       width: 100%;
       max-width: 1100px;
       margin: 0 auto;
       text-align: center;
-      /* center text / title */
     }
 
-    /* Centered, larger report panel */
+ /* Centered, larger report panel */
     .panel.report-panel {
       max-width: 1100px;
       margin: 32px auto;
@@ -303,7 +73,7 @@
       /* ruang dalam yang lebih lega */
       border-radius: 24px;
       background-color: rgb(70, 135, 200);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+      box-shadow: 90PX 10px 40px rgba(0, 0, 0, 0.06);
       border: 2px solid rgb(59, 107, 202);
       overflow: hidden;
       border-bottom: 4px solid rgba(4, 3, 72, 0.564);
@@ -329,28 +99,35 @@
 
     .iframe-wrapper iframe {
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
     }
 
-    /* Tweak untuk layar sangat lebar */
-    @media (min-width: 1400px) {
-      .panel.report-panel {
-        max-width: 1300px;
-      }
-
-      .iframe-wrapper {
-        min-height: 720px;
-        padding-bottom: 50%;
-      }
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      color: rgba(0,0,0,0.6);
+      font-size: 13px;
     }
 
-    /* Mobile adjustments */
+    /* Responsive tweaks */
     @media (max-width: 720px) {
+      .wrap {
+        flex-direction: column;
+      }
+
+      #sidebar {
+        width: 100%;
+        min-width: auto;
+      }
+
+      main.main {
+        padding: 12px;
+      }
+
       .panel.report-panel {
         margin: 16px;
         padding: 12px;
@@ -361,7 +138,17 @@
         padding-bottom: 56.25%;
       }
     }
-  </style>  
+
+    @media (min-width: 1400px) {
+      .panel.report-panel {
+        max-width: 1300px;
+      }
+      .iframe-wrapper {
+        min-height: 720px;
+        padding-bottom: 50%;
+      }
+    }
+  </style> 
 </head>
 
 <body>
