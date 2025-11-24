@@ -1,7 +1,7 @@
 function loadsidebarCSS() {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = '../assets/css/sidebar.css';
+    link.href = './../../src/output.css';
     document.head.appendChild(link);
 }
 
@@ -15,7 +15,7 @@ export function loadsidebar() {
         </div>
         
         <nav class="menu" role="navigation">
-            <a href="../radalgram.html">
+            <a href="../pages/radalgram.html">
                 <span>👥</span>
             <p> RADALGRAM 2025 </p>
             </a>
